@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MoMo Payment Example</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <strong>MoMo Payment Demo</strong>
+        <span class="muted">Express + EJS</span>
+      </div>
+      <div class="badges">
+        <span class="badge">TMN: <%= tmnCode %></span>
+        <span class="badge"><%= environment %></span>
+      </div>
+    </header>
+
+    <main class="container">
+      <% if (message) { %><div class="alert success"><%= message %></div><% } %>
+      <% if (error) { %><div class="alert error"><%= error %></div><% } %>
+
+      <section class="card">
+        <h1>Tạo thanh toán MoMo</h1>
+        <p class="muted">URL callback đang dùng: <code><%= publicBaseUrl || "localhost (chưa expose)" %></code></p>
+        <form action="/payments/momo/create" method="post">
+          <label>Số tiền (VND)<input name="amount" type="number" min="1000" step="1" value="10000" required></label>
+          <label>Nội dung<input name="orderInfo" value="Demo thanh toán MoMo"></label>
+          <button type="submit">Tạo payment và mở MoMo</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="section-title">
+          <h2>Giao dịch trong phiên</h2>
+          <span class="muted">In-memory, restart app sẽ mất dữ liệu</span>
+        </div>
+        <% if (transactions.length === 0) { %>
+          <p class="muted">Chưa có giao dịch.</p>
+        <% } else { %>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Order ID</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody>
+                <% transactions.forEach((transaction) => { %>
+                  <tr>
+                    <td><code><%= transaction.orderId %></code></td>
+                    <td><%= transaction.amount.toLocaleString("vi-VN") %> đ</td>
+                    <td><span class="status"><%= transaction.status %></span></td>
+                    <td class="actions">
+                      <form action="/transactions/<%= transaction.orderId %>/query" method="post"><button class="secondary" type="submit">Query txn</button></form>
+                      <a class="button secondary" href="/api/transactions/<%= transaction.orderId %>" target="_blank">JSON</a>
+                    </td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+      </section>
+    </main>
+  </body>
+</html>

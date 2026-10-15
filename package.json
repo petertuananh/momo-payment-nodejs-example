@@ -1,0 +1,28 @@
+{
+  "name": "momo-payment-nodejs-example",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Express and EJS example for integrating the momo-payment Node.js library with MoMo Sandbox.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petertuananh/momo-payment-nodejs-example.git"
+  },
+  "homepage": "https://github.com/petertuananh/momo-payment-nodejs-example#readme",
+  "bugs": {
+    "url": "https://github.com/petertuananh/momo-payment-nodejs-example/issues"
+  },
+  "author": "Peter Tuan Anh",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "main": "src/server.js",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "momo-payment": "latest"
+  }
+}

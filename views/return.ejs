@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="vi">
+  <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MoMo Return</title><link rel="stylesheet" href="/styles.css"></head>
+  <body>
+    <main class="container">
+      <section class="card">
+        <h1>Kết quả redirect từ MoMo</h1>
+        <p>Order: <code><%= payload.orderId || "unknown" %></code></p>
+        <p class="status"><%= Number(payload.resultCode) === 0 ? "Thành công" : (payload.message || "Thất bại") %></p>
+        <pre><%= JSON.stringify(payload, null, 2) %></pre>
+        <a class="button" href="/">Quay lại dashboard</a>
+      </section>
+    </main>
+  </body>
+</html>
